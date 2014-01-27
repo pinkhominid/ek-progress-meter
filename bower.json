@@ -1,0 +1,24 @@
+{
+  "name": "ek-progress-meter",
+  "version": "0.1.0",
+  "authors": [
+    "pinkhominid"
+  ],
+  "description": "A web component built with Polymer and D3 for showing percent complete.",
+  "main": "ek-progress-meter.html",
+  "keywords": [
+    "progress",
+    "web-components",
+    "polymer",
+    "d3"
+  ],
+  "license": "BSD",
+  "homepage": "https://github.com/pinkhominid/ek-progress-meter",
+  "ignore": [
+    "bower_components"
+  ],
+  "dependencies": {
+    "polymer": "~0.1.3",
+    "d3": "~3.4.1"
+  }
+}

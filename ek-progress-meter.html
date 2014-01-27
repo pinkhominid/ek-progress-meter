@@ -1,0 +1,76 @@
+<!--
+  ek-notification-stack
+  pinkhominid
+  BSD License
+-->
+<link rel="import" href="bower_components/polymer/polymer.html">
+<polymer-element name="ek-progress-meter" attributes="radius, value">
+  <template>
+    <style>
+      :host { display: inline-block; }
+      #background { fill: #bbb; }
+      #foreground { fill: green; }
+      #text { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+    </style>
+    <svg width="{{radius*2}}" height="{{radius*2}}">
+      <g transform="translate({{radius}}, {{radius}})">
+        <g id="meter">
+          <path id="background"></path>
+          <path id="foreground"></path>
+          <text id="text" text-anchor="middle" dy=".35em"></text>
+        </g>
+      </g>
+    </svg>
+  </template>
+  <script src="bower_components/d3/d3.min.js"></script>
+  <script>
+    (function () {
+      var twoPi = 2 * Math.PI,
+        formatPercent = d3.format('.0%');
+
+      function radiusChanged() {
+        this.arc = d3.svg.arc()
+            .startAngle(0)
+            .innerRadius(this.radius/2)
+            .outerRadius(this.radius);
+
+        this.$.text.style.fontSize = this.radius/2/2 + 'px';
+        this.$.background.setAttribute('d', this.arc.endAngle(twoPi)());
+      }
+
+      function valueChanged() {
+        var host = this;
+        var i = d3.interpolate(host.progress, host.value);
+        d3.transition().tween('progress', function() {
+          return function(t) {
+            host.progress = i(t);
+            host.$.foreground.setAttribute('d', host.arc.endAngle(twoPi * host.progress)());
+            host.$.text.innerHTML = formatPercent(host.progress);
+          };
+        });
+      }
+
+      Polymer('ek-progress-meter', {
+        radius: 100,
+        value: 0,
+        ready: function () {
+          this.progress = 0;
+          radiusChanged.call(this);
+          valueChanged.call(this);
+        },
+        attributeChanged: function(attr, oldVal, newVal) {
+          switch (attr[0]) {
+            case 'radius':
+              radiusChanged.call(this);
+              valueChanged.call(this);
+              break;
+            case 'value':
+              valueChanged.call(this);
+              break;
+          }
+        }
+      });
+    })();
+
+  </script>
+</polymer-element>
