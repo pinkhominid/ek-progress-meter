@@ -1,6 +1,6 @@
 {
   "name": "ek-progress-meter",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "authors": [
     "pinkhominid"
   ],
@@ -15,7 +15,7 @@
   "license": "BSD",
   "homepage": "https://github.com/pinkhominid/ek-progress-meter",
   "ignore": [
-    "bower_components"
+    "**/.*"
   ],
   "dependencies": {
     "polymer": "~0.1.3",
