@@ -40,6 +40,7 @@
 
       function valueChanged() {
         var host = this;
+        host.value = Math.min(100, Math.max(0, host.value));
         var i = d3.interpolate(host.progress, host.value);
         d3.transition().tween('progress', function() {
           return function(t) {
