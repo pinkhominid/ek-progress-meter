@@ -4,6 +4,8 @@
   BSD License
 -->
 <link rel="import" href="../polymer/polymer.html">
+<script src="../d3/d3.min.js"></script>
+
 <polymer-element name="ek-progress-meter" attributes="radius, value">
   <template>
     <style>
@@ -22,7 +24,6 @@
       </g>
     </svg>
   </template>
-  <script src="../d3/d3.min.js"></script>
   <script>
     (function () {
       var twoPi = 2 * Math.PI,
@@ -39,14 +40,13 @@
       }
 
       function valueChanged() {
-        var host = this;
-        host.value = Math.min(1, Math.max(0, host.value));
-        var i = d3.interpolate(host.progress, host.value);
+        this.value = Math.min(1, Math.max(0, this.value));
+        var host = this, i = d3.interpolate(this.progress, this.value);
         d3.transition().tween('progress', function() {
           return function(t) {
             host.progress = i(t);
             host.$.foreground.setAttribute('d', host.arc.endAngle(twoPi * host.progress)());
-            host.$.text.innerHTML = formatPercent(host.progress);
+            host.$.text.textContent = formatPercent(host.progress);
           };
         });
       }
