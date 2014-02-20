@@ -1,6 +1,6 @@
 {
   "name": "ek-progress-meter",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "authors": [
     "pinkhominid"
   ],
@@ -18,7 +18,7 @@
     "**/.*"
   ],
   "dependencies": {
-    "polymer": "~0.1.4",
+    "polymer": "~0.2.0",
     "d3": "~3.4.1"
   }
 }
